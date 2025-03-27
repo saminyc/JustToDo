@@ -4,12 +4,20 @@ import { useState } from "react";
 const page = () => {
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
+  const submitHandler = (e) =>{
+   e.preventDefault()
+    console.log(Title)
+    console.log(Description)
+    setTitle("")
+    setDescription("")
+
+  }
   return (
     <>
       <h1 className="text-5xl bg-black text-white p-5 font-bold text-center">
         JustToDo
       </h1>
-      <form>
+      <form onSubmit={submitHandler}>
         <input
           type="text"
           placeholder="Task"
