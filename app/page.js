@@ -13,17 +13,24 @@ const page = () => {
     setDescription("");
     console.log(mainTask);
   };
+  const deleteHandler = (idx)=>{
+    let copyTask = [...mainTask]
+    copyTask.splice(idx)
+    setMainTask(copyTask)
+  }
 
   let renderTask = <h2>No Task Available</h2>;
   if (mainTask.length > 0) {
     renderTask = mainTask.map((t, idx) => {
       return (
-        <li className="flex items-center justify-between">
+        <li key={idx} className="flex items-center justify-between">
           <div className="flex justify-between mb-5 w-2/3">
             <h3 className="text-xl font-semibold">{t.Title}</h3>
-            <h4 className="text-xl font-semibold">{t.Description}</h4>
+            <h4 className="text-lg font-medium">{t.Description}</h4>
           </div>
-          <button className="bg-red-300 text-black px-2 py-2 m-5 rounded text-s font-bold">delete</button>
+          <button onClick={()=>{deleteHandler(idx)}} className="bg-red-300 text-black px-2 py-2 m-5 rounded text-s font-bold">
+            delete
+          </button>
         </li>
       );
     });
@@ -47,6 +54,7 @@ const page = () => {
           className="text-2xl border-4 font-bold m-5 px-4 py-2 text-center"
           value={Title}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
         <input
           type="text"
@@ -54,8 +62,9 @@ const page = () => {
           className="text-2xl border-4 font-bold m-5 px-4 py-2 text-center"
           value={Description}
           onChange={(e) => setDescription(e.target.value)}
+          required
         />
-        <button className="bg-black text-white px-4 py-3 m-5 rounded text-xl font-bold">
+        <button onClick={submitHandler} className="bg-black text-white px-4 py-3 m-5 rounded text-xl font-bold">
           Add Task
         </button>
       </form>
